@@ -1,14 +1,17 @@
-import Taro, {Component} from '@tarojs/taro'
+import Taro  from '@tarojs/taro'
 import {View} from '@tarojs/components'
 
-class Index extends Component {
-    render() {
-        return (
-            <View className='index'>
+import './index.scss'
 
-            </View>
-        )
-    }
+export default function Mine() {
+
+  return (
+    <View>
+      我的
+    </View>
+  )
 }
 
-export default Index
+Mine.config = {
+  navigationBarTitleText: '我的'
+}

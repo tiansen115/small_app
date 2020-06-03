@@ -1,14 +1,17 @@
-import Taro, {Component} from '@tarojs/taro'
+import Taro  from '@tarojs/taro'
 import {View} from '@tarojs/components'
 
-class Index extends Component {
-    render() {
-        return (
-            <View className='index'>
+import './index.scss'
 
-            </View>
-        )
-    }
+export default function Category() {
+
+  return (
+    <View>
+      分类页
+    </View>
+  )
 }
 
-export default Index
+Category.config = {
+  navigationBarTitleText: '分类'
+}

@@ -19,13 +19,53 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/index/index'
+      'pages/index/index',
+      'pages/category/index',
+      'pages/cart/index',
+      'pages/mine/index',
+      'pages/search/index'
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      color: '#626567',
+      selectedColor: '#6e9eea',
+      backgroundColor: '#fbfbfb',
+      borderStyle: 'white',
+      list: [
+        {
+        pagePath: 'pages/index/index',
+        text: '首页',
+        iconPath: './assets/icons/home.png',
+        selectedIconPath:'./assets/icons/homeSelected.png'
+       },
+        {
+          pagePath: 'pages/category/index',
+          text: '分类',
+          iconPath: './assets/icons/category.png',
+          selectedIconPath:'./assets/icons/categorySelected.png'
+        },
+        {
+          pagePath: 'pages/cart/index',
+          text: '购物车',
+          iconPath: './assets/icons/cart.png',
+          selectedIconPath:'./assets/icons/cartSelected.png'
+        },{
+          pagePath: 'pages/mine/index',
+          text: '我的',
+          iconPath: './assets/icons/mine.png',
+          selectedIconPath:'./assets/icons/mineSelected.png'
+        }
+        ]
+    },
+    'permission': {
+      'scope.userLocation': {
+        'desc': '你的位置信息将用于定位效果展示'
+      }
     }
   }
 

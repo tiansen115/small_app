@@ -1,52 +1,66 @@
-import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
+import Taro, { useState } from '@tarojs/taro'
+import { View, Swiper, SwiperItem, Image  } from '@tarojs/components'
+import { AtSearchBar } from 'taro-ui'
 
-import { add, minus, asyncAdd } from '../../actions/counter'
+import { useSelector, useDispatch } from '@tarojs/redux'
 
 import './index.scss'
+import { SETSEARCHVAL } from "../../constants/home";
 
+export default function Index() {
+  const [searchVal, setSearchVal] = useState('')
 
-@connect(({ counter }) => ({
-  counter
-}), (dispatch) => ({
-  add () {
-    dispatch(add())
-  },
-  dec () {
-    dispatch(minus())
-  },
-  asyncAdd () {
-    dispatch(asyncAdd())
-  }
-}))
-class Index extends Component {
+  const banners = useSelector(state => state.home.banners)
 
-    config = {
-    navigationBarTitleText: '首页'
+  const dispatch = useDispatch()
+
+  function onSearchChange(val) {
+    console.log(val)
+    setSearchVal(val)
   }
 
-  componentWillReceiveProps (nextProps) {
-    console.log(this.props, nextProps)
+  function onSearchActionClick () {
+    dispatch({
+      type: SETSEARCHVAL,
+      payload: searchVal
+    })
+    Taro.redirectTo({
+      url: `/pages/search/index?searchVal=${searchVal}`
+    })
   }
 
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
-
-  render () {
     return (
       <View className='index'>
-        <Button className='add_btn' onClick={this.props.add}>+</Button>
-        <Button className='dec_btn' onClick={this.props.dec}>-</Button>
-        <Button className='dec_btn' onClick={this.props.asyncAdd}>async</Button>
-        <View><Text>{this.props.counter.num}</Text></View>
-        <View><Text>Hello, World</Text></View>
+        {/*搜素框*/}
+        <View>
+          <AtSearchBar
+            actionName='搜一下'
+            value={searchVal}
+            onChange={onSearchChange.bind(this)}
+            onActionClick={onSearchActionClick}
+          />
+        </View>
+        {/*轮播图*/}
+        <View>
+          <Swiper
+            className='swiper-container'
+            indicatorColor='#999'
+            indicatorActiveColor='#333'
+            circular
+            indicatorDots
+            autoplay
+          >
+            { banners.map((item, index) => (
+              <SwiperItem key={index}>
+                <Image className='swiper-img' mode='widthFix' src={item.url}></Image>
+              </SwiperItem>
+              ))}
+          </Swiper>
+        </View>
       </View>
     )
-  }
 }
 
-export default Index
+Index.config = {
+  navigationBarTitleText: '首页'
+}
